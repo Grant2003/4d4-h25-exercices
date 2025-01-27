@@ -1,0 +1,51 @@
+#Hello world!
+# principal:
+#   myInt: 12345
+#   myString: hello
+#   mystring2: "Hello wolrd"
+#   myBool: true
+#   myBool2: false
+#   myList: 
+#     - pogo
+#     - poutine
+#     - etc
+#   users: 
+#     - bob:
+#       name: "bob"
+#       jobs:
+#         - builder
+#         - admin
+#     - John:
+#       name: "John"
+#       jobs:
+#       - admin
+volumes:
+  ubuntu_data:
+  mysql_data:
+
+services: 
+  ubuntu-1:
+    image: ubuntu:20.04
+    command: tail -f /dev/null
+    ports:
+      - 8080:80
+      - 8081:80
+    environment:
+      - MY_USER=anthony
+      - MY_PASSWORD=password
+
+    volumes:
+      - ubuntu_data:/etc
+  # ubuntu-2:
+  #   image: ubuntu:20.04
+  #   command: tail -f /dev/null
+  #   ports:
+  #     - 7777:1234
+  bd-mysql:
+    image: mysql
+    ports:
+      - 8336:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql_data:/var/lib/mysql
